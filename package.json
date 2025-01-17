@@ -1,0 +1,31 @@
+{
+  "name": "@scayle/changelog-formatter",
+  "version": "1.0.1",
+  "description": "A custom formatter for creating changelogs with changesets",
+  "private": true,
+  "author": "SCAYLE Commerce Engine",
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "CHANGELOG.md",
+    "./dist/index.js"
+  ],
+  "scripts": {
+    "build": "yarn tsc --skipLibCheck --outDir dist index.ts",
+    "format": "dprint check",
+    "format:fix": "dprint fmt",
+    "lint": "eslint . --format gitlab",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@changesets/types": "6.0.0",
+    "@scayle/eslint-config-storefront": "4.4.1",
+    "dprint": "0.48.0",
+    "eslint": "9.18.0",
+    "eslint-formatter-gitlab": "5.1.0",
+    "typescript": "5.7.3"
+  }
+}
