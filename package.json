@@ -21,7 +21,7 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@changesets/types": "6.0.0",
+    "@changesets/types": "6.1.0",
     "@scayle/eslint-config-storefront": "4.4.1",
     "dprint": "0.49.0",
     "eslint": "9.20.1",
