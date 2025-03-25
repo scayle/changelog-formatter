@@ -43,7 +43,7 @@ const getReleaseLine = (
   return Promise.resolve(returnVal)
 }
 
-const getDependencyReleaseLine = (
+const getDependencyReleaseLine = async (
   changesets: NewChangesetWithCommit[],
   dependenciesUpdated: ModCompWithPackage[],
 ) => {
@@ -51,16 +51,38 @@ const getDependencyReleaseLine = (
     return Promise.resolve('')
   }
 
-  const updatedDependenciesList = dependenciesUpdated.map(
+  const updatedDependenciesList = dependenciesUpdated.filter(pkg =>
+    pkg.name !== '@scayle/storefront-core'
+  ).map(
     (dependency) =>
       `- Updated dependency to ${dependency.name}@${dependency.newVersion}`,
   )
+
+  const coreUpdate = dependenciesUpdated.find(pkg =>
+    pkg.name === '@scayle/storefront-core'
+  )
+  let coreUpdateText
+  if (coreUpdate) {
+    const coreChangesets = coreUpdate.changesets.map(changeset =>
+      changesets.find(({ id }) => id === changeset)
+    )
+    coreUpdateText = [
+      `\n**@scayle/storefront-core v${coreUpdate.newVersion}**\n`,
+      ...(await Promise.all(
+        coreChangesets.map(changeset =>
+          getReleaseLine(changeset, coreUpdate.type)
+        ),
+      )),
+    ].join('\n')
+  }
 
   // NOTE: We add the first entry "Dependencies" as a bold fake "headline".
   // This e.g. resolves issues with rendering in other not fully markdown-compatible
   // medium like Google Chat .
   return Promise.resolve(
-    ['\n**Dependencies**\n', ...updatedDependenciesList].join('\n'),
+    [coreUpdateText, '\n**Dependencies**\n', ...updatedDependenciesList].join(
+      '\n',
+    ),
   )
 }
 
