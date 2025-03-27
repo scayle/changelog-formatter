@@ -43,6 +43,51 @@ const getReleaseLine = (
   return Promise.resolve(returnVal)
 }
 
+const getSectionText = async (
+  changesets: Record<VersionType, NewChangesetWithCommit[]>,
+  updateType: VersionType,
+): Promise<string> => {
+  if (!changesets[updateType]?.length) {
+    return ''
+  }
+
+  const lines: [string] = [
+    `- ${updateType.charAt(0).toUpperCase() + updateType.slice(1)}`,
+  ]
+  lines.push(...(await Promise.all(
+    changesets[updateType].map(changeset =>
+      getReleaseLine(changeset, updateType as VersionType)
+    ),
+  )).map(line => `    ${line}`))
+  return lines.join('\n')
+}
+
+const getDependencyChanges = async (
+  changesets: NewChangesetWithCommit[],
+  dependency: string,
+): Promise<string> => {
+  const grouped = changesets.reduce<
+    Record<VersionType, NewChangesetWithCommit[]>
+  >((obj, changeset) => {
+    const releaseType: VersionType = changeset.releases.find(({ name }) =>
+      name === dependency
+    )?.type ?? 'patch'
+    obj[releaseType].push(changeset)
+    return obj
+  }, {
+    patch: [] as NewChangesetWithCommit[],
+    minor: [] as NewChangesetWithCommit[],
+    major: [] as NewChangesetWithCommit[],
+    none: [] as NewChangesetWithCommit[],
+  })
+
+  return (await Promise.all([
+    getSectionText(grouped, 'major'),
+    getSectionText(grouped, 'minor'),
+    getSectionText(grouped, 'patch'),
+  ])).join('\n')
+}
+
 const getDependencyReleaseLine = async (
   changesets: NewChangesetWithCommit[],
   dependenciesUpdated: ModCompWithPackage[],
@@ -68,11 +113,10 @@ const getDependencyReleaseLine = async (
     )
     coreUpdateText = [
       `\n**@scayle/storefront-core v${coreUpdate.newVersion}**\n`,
-      ...(await Promise.all(
-        coreChangesets.map(changeset =>
-          getReleaseLine(changeset, coreUpdate.type)
-        ),
-      )),
+      await getDependencyChanges(
+        coreChangesets,
+        '@scayle/storefront-core',
+      ),
     ].join('\n')
   }
 
