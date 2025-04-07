@@ -110,7 +110,7 @@ const getDependencyReleaseLine = async (
   if (coreUpdate) {
     const coreChangesets = coreUpdate.changesets.map(changeset =>
       changesets.find(({ id }) => id === changeset)
-    )
+    ).filter(change => !!change)
     coreUpdateText = [
       `\n**@scayle/storefront-core v${coreUpdate.newVersion}**\n`,
       await getDependencyChanges(
