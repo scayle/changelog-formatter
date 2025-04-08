@@ -124,7 +124,7 @@ const getDependencyReleaseLine = async (
   // This e.g. resolves issues with rendering in other not fully markdown-compatible
   // medium like Google Chat .
   return Promise.resolve(
-    [coreUpdateText, '\n**Dependencies**\n', ...updatedDependenciesList].join(
+    ['\n**Dependencies**\n', ...updatedDependenciesList, coreUpdateText].join(
       '\n',
     ),
   )
