@@ -81,11 +81,17 @@ const getDependencyChanges = async (
     none: [] as NewChangesetWithCommit[],
   })
 
-  return (await Promise.all([
+  const text = (await Promise.all([
     getSectionText(grouped, 'major'),
     getSectionText(grouped, 'minor'),
     getSectionText(grouped, 'patch'),
   ])).join('\n')
+
+  if (!text.trim()) {
+    return '\n- No changes in this release.\n'
+  }
+
+  return text
 }
 
 const getDependencyReleaseLine = async (
