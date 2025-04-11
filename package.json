@@ -21,7 +21,8 @@
     "build": "unbuild",
     "format": "dprint check",
     "format:fix": "dprint fmt",
-    "lint": "eslint . --format gitlab",
+    "lint": "eslint .",
+    "lint:ci": "eslint . --format gitlab",
     "lint:fix": "eslint . --fix",
     "verify-packaging": "attw --pack .",
     "typecheck": "tsc --noEmit -p tsconfig.json"
