@@ -33,7 +33,7 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
     "@changesets/types": "6.1.0",
-    "@scayle/eslint-config-storefront": "4.5.12",
+    "@scayle/eslint-config-storefront": "workspace:*",
     "dprint": "0.50.1",
     "eslint": "9.30.1",
     "eslint-formatter-gitlab": "6.0.1",
