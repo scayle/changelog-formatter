@@ -1,5 +1,11 @@
 # @scayle/changelog-formatter
 
+## 1.1.1
+
+### Patch Changes
+
+- Cleaned up README.md and added CONTRIBUTING.md. No functional changes.
+
 ## 1.1.0
 
 ### Minor Changes

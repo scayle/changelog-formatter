@@ -1,6 +1,6 @@
 {
   "name": "@scayle/changelog-formatter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A custom formatter for creating changelogs with changesets",
   "author": "SCAYLE Commerce Engine",
   "license": "MIT",
