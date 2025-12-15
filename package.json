@@ -34,7 +34,7 @@
     "@changesets/types": "6.1.0",
     "@scayle/eslint-config-storefront": "workspace:*",
     "dprint": "0.50.2",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "eslint-formatter-gitlab": "7.0.1",
     "typescript": "5.9.3",
     "unbuild": "3.6.1"
