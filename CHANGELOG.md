@@ -1,5 +1,11 @@
 # @scayle/changelog-formatter
 
+## 1.1.2
+
+### Patch Changes
+
+- This is an internal change only. The packages now use the PNPM catalog feature to ensure dependencies use the identical version across packages.
+
 ## 1.1.1
 
 ### Patch Changes
