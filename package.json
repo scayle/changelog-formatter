@@ -16,6 +16,9 @@
     "CHANGELOG.md",
     "./dist/index.mjs"
   ],
+  "engines": {
+    "node": ">= 22.0.0"
+  },
   "scripts": {
     "build": "unbuild",
     "format": "dprint check",
